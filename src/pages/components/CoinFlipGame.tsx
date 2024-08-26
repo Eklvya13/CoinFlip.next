@@ -22,7 +22,7 @@ interface CoinFlipGameProps {
   
       // Simulate the coin flip result after 3 seconds
       setTimeout(async () => {
-        const flipResult = 'heads'; // Replace with Math.random() < 0.5 ? 'heads' : 'tails';
+        const flipResult = Math.random() < 0.5 ? 'heads' : 'tails';
         setResult(flipResult);
         setIsFlipping(false);
   
