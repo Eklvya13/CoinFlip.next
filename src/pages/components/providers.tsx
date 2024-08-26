@@ -8,7 +8,7 @@ import { config } from '../../wagmi';
 
 const client = new QueryClient();
 
-export const Providers: React.FC<React.PropsWithChildren<{}>> =({ children }) => {
+const Providers: React.FC<React.PropsWithChildren<{}>> =({ children }) => {
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
@@ -21,3 +21,5 @@ export const Providers: React.FC<React.PropsWithChildren<{}>> =({ children }) =>
     </WagmiProvider>
   );
 };
+
+  export default Providers
