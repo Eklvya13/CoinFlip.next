@@ -40,7 +40,7 @@ const Home: NextPage = () => {
 
         <Box width="100%" maxW="640px" mx="auto" mb={8}>
           <LottieCoinFlip />
-          <Game style={{backgroundColor: 'white'}}/>
+          <Game />
         </Box>
       </main>
 
