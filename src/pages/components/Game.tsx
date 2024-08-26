@@ -20,6 +20,7 @@ import SendTransaction from './SendTransaction';
 import CoinFlipGame from './CoinFlipGame';
 
 
+
 function Game() {
   const [betPlaced, setBetPlaced] = React.useState(false);
   const [transactionComplete, setTransactionComplete] = React.useState(false);

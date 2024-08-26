@@ -10,10 +10,11 @@ import {
 interface SendTransactionProps {
   onComplete: (amount: string) => void;
 }
+import { publicClient } from '../../client';
 
 function SendTransaction({ onComplete }: { onComplete: (amount: string) => void }) {
     const {
-      data: txHash,
+      data: hash,
       error,
       isPending,
       sendTransaction
@@ -27,7 +28,7 @@ function SendTransaction({ onComplete }: { onComplete: (amount: string) => void 
       const amount = parseFloat(value);
   
       // Validate if amount is less than 0.01
-      if (isNaN(amount) || amount < 0.01) {
+      if (isNaN(amount) || amount < 0.0001) {
         setFormError('Minimum transaction amount is 0.01 ETH');
         return;
       }
@@ -36,11 +37,11 @@ function SendTransaction({ onComplete }: { onComplete: (amount: string) => void 
       const to = "0x75aB5177C9f44eed4302d959f9f2BB0f3102c0bD" as `0x${string}`; 
       sendTransaction({ to, value: parseEther(value) });
     } 
+    console.log(hash)
     const { isLoading: isConfirming, isSuccess: isConfirmed } = 
       useWaitForTransactionReceipt({ 
-        hash: txHash
+        hash, 
       });
-    
     React.useEffect(() => {
       if (isConfirmed) {
         console.log('test')
@@ -55,12 +56,12 @@ function SendTransaction({ onComplete }: { onComplete: (amount: string) => void 
             <FormLabel>Amount (ETH)</FormLabel>
             <Input 
               name="value" 
-              placeholder="0.05" 
+              placeholder="0.01" 
               value={value}
               onChange={(e) => setValue(e.target.value)}
               type="number"
-              min={0.01}
-              step={0.01} // Ensure the input step matches the minimum value
+              min={0.0001}
+              step={0.0001} // Ensure the input step matches the minimum value
             />
             <FormHelperText>Place Bet!.</FormHelperText>
             {formError && <FormErrorMessage>{formError}</FormErrorMessage>}
@@ -75,9 +76,9 @@ function SendTransaction({ onComplete }: { onComplete: (amount: string) => void 
             {isPending ? 'Confirming...' : 'Send'}
           </Button>
   
-          {txHash && (
+          {hash && (
             <Box mt={4}>
-              <Text>Transaction Hash: {txHash}</Text>
+              <Text>Transaction Hash: {hash}</Text>
             </Box>
           )}
   
